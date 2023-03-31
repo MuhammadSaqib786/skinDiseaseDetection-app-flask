@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 from tensorflow import keras
 import cv2
@@ -34,11 +34,16 @@ MODEL_PATH = 'models/Best_Model.h5'
 model = load_model(MODEL_PATH)
 model.make_predict_function()
 
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 
-def predict_label(img_path):
-    i = image.load_img(img_path, target_size=(150, 150))
-    i = image.img_to_array(i) / 255.0
-    i = i.reshape(1, 150, 150, 3)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def predict_label(img):
+    i = img
     p = model.predict_generator(i)
     # now find maximum value from these values
     max, accurate = find_max(p[0])
@@ -75,8 +80,40 @@ def contact():
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     if request.method == 'POST':
-        # Code to detect skin disease
-        return render_template('result.html')
+        # Check if a file was uploaded
+        if 'image' not in request.files:
+            flash('No file was uploaded.')
+            return redirect(request.url)
+
+        file = request.files['image']
+
+        # If the user does not select a file, the browser submits an empty file without a filename.
+        if file.filename == '':
+            flash('No file was uploaded.')
+            return redirect(request.url)
+
+        # Check if the file is allowed
+        if not allowed_file(file.filename):
+            flash('The file type is not allowed.')
+            return redirect(request.url)
+
+        # Preprocess image for the model
+        img = Image.open(file.stream)
+        img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        img = cv2.resize(img, (150, 150))
+        img = img.astype('float32') / 255.0
+        img = np.expand_dims(img, axis=0)
+
+        # Make prediction
+        prediction, acc = predict_label(img)
+
+        acc = acc * 100
+        acc = round(acc, 2)
+        result = dic[prediction]
+
+        # Render result template
+        return render_template('result.html', result=result)
+
     return render_template('detect.html')
 
 

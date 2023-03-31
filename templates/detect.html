@@ -4,7 +4,7 @@
 
 {% block content %}
   <h1>Detect Skin Disease</h1>
-  <form method="post" enctype="multipart/form-data" action="{{ url_for('predict') }}">
+  <form method="post" enctype="multipart/form-data" action="{{ url_for('detect') }}">
     <div class="form-group">
       <label for="image">Upload Image:</label>
       <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
