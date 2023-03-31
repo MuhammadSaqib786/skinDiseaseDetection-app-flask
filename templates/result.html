@@ -5,9 +5,15 @@
 {% block content %}
   <h1>Detection Results</h1>
   {% if result %}
-  <h2>Prediction: {{ result }}</h2>
+  <div class="card" style="width: 18rem;">
+    <img src="{{image}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Prediction: {{ result }}</h5>
+      <p class="card-text">Accuracy: {{ accuracy }}</p>
+    </div>
+  </div>
   {% else %}
   <p>No disease detected.</p>
   {% endif %}
-  <a class="btn btn-primary" href="{{ url_for('detect') }}" role="button">Detect Another Image</a>
+  <a class="btn btn-primary mt-2"  href="{{ url_for('detect') }}" role="button">Detect Another Image</a>
 {% endblock %}

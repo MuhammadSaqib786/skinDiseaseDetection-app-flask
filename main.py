@@ -96,9 +96,11 @@ def detect():
         if not allowed_file(file.filename):
             flash('The file type is not allowed.')
             return redirect(request.url)
-
+        img_path = "static/images_saved/" + file.filename
+        file.save(img_path)
         # Preprocess image for the model
         img = Image.open(file.stream)
+
         img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
         img = cv2.resize(img, (150, 150))
         img = img.astype('float32') / 255.0
@@ -110,9 +112,10 @@ def detect():
         acc = acc * 100
         acc = round(acc, 2)
         result = dic[prediction]
+        print(acc)
 
         # Render result template
-        return render_template('result.html', result=result)
+        return render_template('result.html', result=result, accuracy=acc, image=img_path)
 
     return render_template('detect.html')
 
