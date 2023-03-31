@@ -10,19 +10,23 @@ import sqlite3
 from pathlib import Path
 from os import path
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, g
 from keras.models import load_model
 from keras.preprocessing import image
 
 # new code below
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('database.db', check_same_thread=False)
 c = conn.cursor()
 
 # Create users table if it doesn't exist
 c.execute('''CREATE TABLE IF NOT EXISTS users
              (id INTEGER PRIMARY KEY AUTOINCREMENT,
-              username TEXT,
+              name TEXT,
+              email TEXT,
+              gender TEXT,
+              phone TEXT,
               password TEXT)''')
+
 conn.commit()
 
 app = Flask(__name__)
@@ -124,15 +128,25 @@ def detect():
 def register():
     if request.method == 'POST':
         # Get form data
-        username = request.form['username']
+        name = request.form['name']
+        email = request.form['email']
+        gender = request.form['gender']
+        phone = request.form['phone']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
+
+        # Check if passwords match
+        if password != confirm_password:
+            flash('Passwords do not match', 'danger')
+            return redirect(url_for('register'))
 
         # Insert new user into database
-        c.execute('''INSERT INTO users (username, password)
-                     VALUES (?, ?)''', (username, password))
+        c.execute('''INSERT INTO users (name, email, gender, phone, password)
+                     VALUES (?, ?, ?, ?, ?)''', (name, email, gender, phone, password))
         conn.commit()
 
         # Redirect to login page
+        flash('Registration successful. Please log in.', 'success')
         return redirect(url_for('login'))
 
     return render_template('register.html')
@@ -142,13 +156,13 @@ def register():
 def login():
     if request.method == 'POST':
         # Get form data
-        username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
 
         # Check if user exists in database
         c.execute('''SELECT * FROM users
-                     WHERE username = ? AND password = ?''',
-                  (username, password))
+                     WHERE email = ? AND password = ?''',
+                  (email, password))
         user = c.fetchone()
 
         if user:
@@ -158,9 +172,18 @@ def login():
 
         # Show error message if login fails
         error = 'Invalid username or password'
-        return render_template('login.html', error=error)
+        flash(error, 'danger')
+        return render_template('login.html')
 
     return render_template('login.html')
+
+
+@app.route('/logout')
+def logout():
+    # Remove the username from the session if it exists
+    session.pop('username', None)
+    # Redirect to the login page
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
