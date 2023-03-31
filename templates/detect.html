@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Detect Disease{% endblock %}
+
+{% block content %}
+  <h1>Detect Skin Disease</h1>
+  <form method="post" enctype="multipart/form-data" action="{{ url_for('predict') }}">
+    <div class="form-group">
+      <label for="image">Upload Image:</label>
+      <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Detect</button>
+  </form>
+{% endblock %}

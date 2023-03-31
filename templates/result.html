@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Detection Results{% endblock %}
+
+{% block content %}
+  <h1>Detection Results</h1>
+  {% if prediction %}
+  <h2>Prediction: {{ prediction }}</h2>
+  {% else %}
+  <p>No disease detected.</p>
+  {% endif %}
+  <a class="btn btn-primary" href="{{ url_for('detect') }}" role="button">Detect Another Image</a>
+{% endblock %}

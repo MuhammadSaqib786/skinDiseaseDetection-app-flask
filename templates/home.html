@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h1>Welcome to Skin Disease Detection</h1>
+  <p>This website helps you detect skin diseases by uploading an image using our trained machine learning model.</p>
+  <p>Click on Detect Disease to get started.</p>
+  <a class="btn btn-primary" href="{{ url_for('detect') }}" role="button">Detect Disease</a>
+{% endblock %}
