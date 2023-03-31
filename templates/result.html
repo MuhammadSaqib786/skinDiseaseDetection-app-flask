@@ -5,15 +5,28 @@
 {% block content %}
   <h1>Detection Results</h1>
   {% if result %}
-  <div class="card" style="width: 18rem;">
-    <img src="{{image}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Prediction: {{ result }}</h5>
-      <p class="card-text">Accuracy: {{ accuracy }}</p>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <img class="card-img-top" src="{{ image }}" width="200px" height="300px" alt="Detected Skin Disease">
+          <div class="card-body">
+            <h2 class="card-title">Detection Result: {{ result }}</h2>
+            <h3 class="card-subtitle mb-2 text-muted">Accuracy: {{ accuracy }}</h3>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">Warning!</h4>
+          <p>You have been diagnosed with {{ result }}. Please consult a dermatologist for further evaluation and treatment.</p>
+          <hr>
+          <p class="mb-0">Note: This is not a medical diagnosis. Please seek professional medical advice for accurate diagnosis and treatment.</p>
+        </div>
+      </div>
     </div>
-  </div>
   {% else %}
-  <p>No disease detected.</p>
+    <p>No disease detected.</p>
   {% endif %}
-  <a class="btn btn-primary mt-2"  href="{{ url_for('detect') }}" role="button">Detect Another Image</a>
+  <a class="btn btn-primary mt-4" href="{{ url_for('detect') }}" role="button">Detect Another Image</a>
 {% endblock %}
