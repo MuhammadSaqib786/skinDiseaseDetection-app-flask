@@ -1,22 +1,18 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 
-os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
-import tensorflow as tf
+from flask import redirect, session, flash
 
-from tensorflow import keras
+os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
+
 import cv2
 import numpy as np
 from PIL import Image
 # Create a connection to the database
 import sqlite3
 # new code above--imports
-from pathlib import Path
-from os import path
 
-from flask import Flask, render_template, request, url_for, g
+from flask import Flask, render_template, request, url_for
 from keras.models import load_model
-from keras.preprocessing import image
 
 # new code below
 conn = sqlite3.connect('database.db', check_same_thread=False)
@@ -38,6 +34,7 @@ app.secret_key = "super_secret_key"
 
 dic = {0: 'Actinic Keratoses', 1: 'Basal Cell Carcinoma', 2: 'Seborrheic Keratosis',
        3: 'Dermatofibroma', 4: 'Malignant Melanoma', 5: 'Melanocytic Nevus', 6: 'Vascular Lesions'}
+
 MODEL_PATH = 'models/Best_Model.h5'
 model = load_model(MODEL_PATH)
 model.make_predict_function()
