@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
+
+os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
+import tensorflow as tf
+
 from tensorflow import keras
 import cv2
 import numpy as np
