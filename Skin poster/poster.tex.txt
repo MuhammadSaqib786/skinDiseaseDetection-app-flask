@@ -1,0 +1,239 @@
+% Unofficial Umich Poster template.
+% A fork of the MSU template https://www.overleaf.com/latex/templates/an-unofficial-poster-template-for-michigan-state-university/wnymbgpxnnwd
+% which is a fork of https://www.overleaf.com/latex/templates/an-unofficial-poster-template-for-new-york-university/krgqtqmzdqhg
+% which is a fork of https://github.com/anishathalye/gemini
+% also refer to https://github.com/k4rtik/uchicago-poster
+
+
+
+\documentclass[final]{beamer}
+
+% ====================
+% Packages
+% ====================
+
+\usepackage[T1]{fontenc}
+ \usepackage[utf8]{luainputenc}
+\usepackage{lmodern}
+\usepackage[size=custom, width=122,height=91, scale=1.2]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{msu}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{anyfontsize}
+
+% ====================
+% Lengths
+% ====================
+
+% If you have N columns, choose \sepwidth and \colwidth such that
+% (N+1)*\sepwidth + N*\colwidth = \paperwidth
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.3\paperwidth}
+
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+
+% ====================
+% Title
+% ====================
+
+\title{SkinVision: An AI-Powered Skin Lesion Detection System}
+
+\author{Md Sheikh Mustakimul Hasan Fahim }
+
+\institute[shortinst]{University of Greenwich }
+
+% ====================
+% Footer (optional)
+% ====================
+
+\footercontent{}
+% (can be left out to remove footer)
+
+
+% ====================
+% Body
+% ====================
+
+\begin{document}
+
+
+
+\begin{frame}[t]
+\begin{columns}[t]
+\separatorcolumn
+
+\begin{column}{\colwidth}
+
+\section{Introduction}
+
+\begin{block}{Overview}
+
+    The developed application is a web-based system for skin lesion classification using deep learning techniques. Users can upload images of skin lesions, and the system will classify the lesions into one of seven categories with high accuracy. The application provides a user-friendly interface, making it easy to use even for non-experts, and the system is scalable, capable of processing large amounts of data efficiently.
+    \begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{skin-detect.png}
+\caption{Disease Detection}
+\label{fig:chatify_screenshot}
+\end{figure}
+
+\end{block}
+
+\begin{block}{Problem Statement}
+
+   \begin{itemize}
+\item Skin cancer is a significant health concern worldwide, with melanoma being the deadliest form of skin cancer.
+\item Early detection and accurate diagnosis of skin lesions are crucial for effective treatment and improved survival rates.
+\item The diagnosis of skin lesions can be challenging, even for experienced dermatologists, due to the variety of lesion types and visual characteristics.
+\item Automated systems for skin lesion classification using deep learning techniques have shown promise in achieving high accuracy rates and reducing diagnostic errors.
+\end{itemize}
+
+
+\end{block}
+
+
+  \begin{block}{Features of the Web Application}
+
+    Our application has the following features:
+
+\begin{itemize}
+  \item Allows users to upload images of skin lesions for classification
+    \item Classifies skin lesions into seven different categories
+    \item Utilizes deep learning techniques for accurate classification
+    \item Provides an intuitive and user-friendly interface
+    \item Implements a login system for user authentication
+    \item Stores user data securely in a database
+    \item Enables scalability and can handle large amounts of data
+    \item Offers potential for future extension and improvement
+\end{itemize}
+
+  \end{block}
+
+  \begin{block}{Scope}
+
+    The scope of the application is to provide a user-friendly and automated system for skin lesion classification using deep learning techniques. The system aims to accurately classify skin lesions into seven categories, including melanoma, nevus, and squamous cell carcinoma. The application is designed to be scalable and can handle large amounts of data, making it suitable for use in clinical settings. The system also allows for user authentication and secure data storage using a relational database management system.
+
+  \end{block}
+
+
+\end{column}
+
+\separatorcolumn
+
+\begin{column}{\colwidth}
+
+  \begin{block}{Usage scenarios}
+
+Our skin disease detection application can be used in a variety of scenarios, including:
+
+\begin{itemize}
+\item \textbf{Individual use}: People can use the application to check for any skin lesions that they may have and get an early diagnosis to prevent further complications.
+\item \textbf{Medical professionals}: Dermatologists and other medical professionals can use the application to complement their diagnosis and provide more accurate treatment recommendations.
+\item \textbf{Public health campaigns}: The application can be used in public health campaigns to promote skin health and awareness about skin diseases.
+\item \textbf{Research purposes}: The application can also be used for research purposes, as it can provide a large dataset of skin lesion images and corresponding diagnoses.
+\end{itemize}
+
+By supporting a wide range of usage scenarios, our skin disease detection application has the potential to impact individual health outcomes, public health, and research efforts.
+
+\end{block}
+
+
+  \begin{block}{User Registration}
+
+To register for our skin disease detection application, follow these steps:
+
+\begin{enumerate}
+\item Click on the "Register" button located on the login page.
+\item Fill in the required fields such as name, email, gender, phone, and password.
+\item Click on the "Submit" button to register your account.
+\item Once your account is successfully registered, you can log in and start using the application.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{registration.png}
+\caption{User registration form.}
+\end{figure}
+
+\end{block}
+
+  \begin{block}{Technologies Used}
+
+    Our skin disease detection application was built using the following technologies and frameworks:
+
+
+\begin{itemize}
+\item \textbf{Python}: for programming the backend of the application
+\item \textbf{Flask}: for developing the web application and APIs
+\item \textbf{TensorFlow}: for building and training the deep learning model
+\item \textbf{Keras}: for developing the deep learning model architecture
+\item \textbf{PIL}: for opening, manipulating, and saving image files
+\item \textbf{NumPy}: for numerical computing
+\item \textbf{SQLite}: for the relational database management system
+\end{itemize}
+
+
+  \end{block}
+
+\end{column}
+
+\separatorcolumn
+
+\begin{column}{\colwidth}
+
+  \begin{block}{How to Detect Disease}
+
+To detect a skin disease, users can follow these simple steps:
+
+\begin{enumerate}
+\item Click on the "Upload" button to select an image of the skin lesion.
+\item Click on the "Detect" button to initiate the detection process.
+\item Wait for the system to analyze the image and provide a diagnosis.
+\item View the diagnosis, which includes the type of skin lesion detected and the corresponding treatment options.
+\end{enumerate}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{how-to-detect.png}
+\caption{Uploading an image and detecting the skin disease.}
+\end{figure}
+
+With these easy-to-follow steps, users can quickly and accurately detect skin diseases using our application.
+\end{block}
+
+
+ \begin{block}{Conclusion}
+
+Our skin disease detection application offers a reliable and accurate solution for detecting and classifying different types of skin lesions. With its user-friendly interface and real-time image analysis, the app allows users to quickly upload images and receive accurate diagnoses in a matter of seconds.
+
+In summary, our application offers:
+
+\begin{itemize}
+\item Accurate and reliable skin lesion detection using deep learning techniques
+\item User-friendly interface for easy navigation and image uploading
+\item Real-time analysis for quick results and diagnosis
+\item Enhanced usability through informative diagnosis details and recommended next steps
+
+\end{itemize}
+
+  \end{block}
+
+  \begin{block}{References}
+
+    \nocite{*}
+    \footnotesize{\bibliographystyle{plain}\bibliography{poster}}
+
+  \end{block}
+
+\end{column}
+
+\separatorcolumn
+\end{columns}
+\end{frame}
+
+\end{document}
